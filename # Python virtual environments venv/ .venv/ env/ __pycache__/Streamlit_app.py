@@ -176,16 +176,17 @@ with col2:
     coefs = model.coef_[0]
     importance_df = pd.DataFrame({
         'Feature': feature_cols,
-        'Impact Coefficient': coefs,
+        'ImpactCoefficient': coefs,
         'Risk Influence': ['Increases Risk' if c > 0 else 'Protects Retention' for c in coefs]
     }).sort_values(by='ImpactCoefficient', key=abs, ascending=False)
     
     fig = px.bar(
         importance_df, 
-        x='Impact Coefficient', 
+        x='ImpactCoefficient', 
         y='Feature', 
         color='Risk Influence',
         orientation='h',
+        labels={'ImpactCoefficient': 'Impact Coefficient'},
         color_discrete_map={'Increases Risk': '#EF4444', 'Protects Retention': '#10B981'},
         title="Standardized LogReg Feature Weights (Risk Factors)"
     )
